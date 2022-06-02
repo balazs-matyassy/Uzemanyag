@@ -2,9 +2,7 @@ package hu.progmatic;
 
 import hu.progmatic.model.FuelPriceChange;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +51,41 @@ public class Main {
             } else {
                 System.out.println("Nem volt változás szökőnapon!");
             }
+
+            // 7. feladat
+            saveFuelPriceChanges(fuelPriceChanges, "euro.txt");
+
+            // 8. feladat
+            // Scanner pontosan ennyire jó megoldás
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            int year;
+
+            do {
+                System.out.print("8. feladat: Kérem adja meg az évszámot [2011..2016]: ");
+                year = Integer.parseInt(reader.readLine());
+            } while (year < 2011 || year > 2016);
+
+            System.out.print("10. feladat: ");
+
+            FuelPriceChange lastChange = null;
+            int max = Integer.MIN_VALUE;
+
+            for (FuelPriceChange fuelPriceChange : fuelPriceChanges) {
+                if (fuelPriceChange.getYear() == year) {
+                    // csak második 2016-os adattól van értelme különbségről beszélni
+                    if (lastChange != null) {
+                        int days = FuelPriceChange.getDaysBetween(lastChange, fuelPriceChange);
+
+                        if (days > max) {
+                            max = days;
+                        }
+                    }
+
+                    lastChange = fuelPriceChange;
+                }
+            }
+
+            System.out.printf("%d évben a leghosszabb időszak %d nap volt.\n", year, max);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,5 +103,17 @@ public class Main {
         }
 
         return fuelPriceChanges;
+    }
+
+    private static void saveFuelPriceChanges(List<FuelPriceChange> fuelPriceChanges, String path)
+            throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
+            for (FuelPriceChange fuelPriceChange : fuelPriceChanges) {
+                writer.printf("%s;%.2f;%.2f\n",
+                        fuelPriceChange.getDate(),
+                        fuelPriceChange.getGasPriceEUR(),
+                        fuelPriceChange.getDieselPriceEUR());
+            }
+        }
     }
 }
