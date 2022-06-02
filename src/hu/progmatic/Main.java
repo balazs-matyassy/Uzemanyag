@@ -86,6 +86,19 @@ public class Main {
             }
 
             System.out.printf("%d évben a leghosszabb időszak %d nap volt.\n", year, max);
+
+            // 11. feladat
+            // eurhuf.txt fájl létrehozása
+            // 2012.01.05;310
+            // 2012.02.30;315
+            // Hozzunk létre egy osztály RateChange néven.
+            // Kérdés: Hogyan tudnánk hatékonyan megoldani öröklődéssel a feladatot?
+            // - RateChange extends FuelPriceChange
+            // - FuelPriceChange extends RateChange
+            // - közös (absztrakt) ősosztály
+            // Milyen metódusokat lehet közösen használni?
+            // CompareTo, equals, hashCode működjenek
+            // equals csak akkor adjon vissza true értéket, ha a dátum és a típus (Fuel vagy Rate) stimmel.
         } catch (IOException e) {
             e.printStackTrace();
         }
