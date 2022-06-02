@@ -99,6 +99,11 @@ public class Main {
             // Milyen metódusokat lehet közösen használni?
             // CompareTo, equals, hashCode működjenek
             // equals csak akkor adjon vissza true értéket, ha a dátum és a típus (Fuel vagy Rate) stimmel.
+
+            // 12. feladat
+            // olvassuk be és tároljuk el az eurhuf.txt tartalmát
+            // Egy közös adatszerkezetben tároljük el az eddigi adatokkal. (Heterogén kollekció)
+            // Hány változás volt szökőnapokon?
         } catch (IOException e) {
             e.printStackTrace();
         }
